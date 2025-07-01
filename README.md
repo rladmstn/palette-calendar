@@ -1,73 +1,177 @@
-# Welcome to your Lovable project
 
-## Project info
+# 프로토타입 링크: https://project-palette-calendar.lovable.app/
 
-**URL**: https://lovable.dev/projects/55faa32d-ba11-4b82-8c8a-6c6152cfc6a9
+# 통합 캘린더 서비스 - 페르소나 및 사용자 스토리
 
-## How can I edit this code?
+## 📌 페르소나
 
-There are several ways of editing your application.
+### 프로젝트 매니저 - 박지현 (32세)
 
-**Use Lovable**
+- **직업**: IT 스타트업 프로덕트 매니저
+- **라이프스타일**: 동시에 3-5개 프로젝트 관리, 회의와 데드라인에 쫓기는 일상, 개인 일정과 업무 일정이 뒤섞임
+- **목표**: 흩어진 일정들을 한 곳에서 체계적으로 관리하여 업무 효율성 극대화
+- **니즈**: 프로젝트별 일정 시각화, TODO와 미팅 통합 관리, 우선순위 파악
+- **페인 포인트**: 여러 도구 간 일정 동기화 문제, 프로젝트 간 스케줄 충돌, 개인 일정 놓침
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/55faa32d-ba11-4b82-8c8a-6c6152cfc6a9) and start prompting.
+### 프리랜서 디자이너 - 김태민 (28세)
 
-Changes made via Lovable will be committed automatically to this repo.
+- **직업**: 프리랜서 UI/UX 디자이너
+- **라이프스타일**: 다양한 클라이언트 프로젝트를 동시 진행, 불규칙한 작업 시간, 데드라인 중심의 업무
+- **목표**: 다양한 클라이언트 프로젝트와 개인 일정을 체계적으로 관리하고 데드라인을 놓치지 않기
+- **니즈**: 클라이언트별 프로젝트 분류, 데드라인 알림, 작업 시간 추적, 포트폴리오 일정 관리
+- **페인 포인트**: 급작스러운 프로젝트 변경, 클라이언트 요청 관리의 어려움, 개인 시간 확보 문제
 
-**Use your preferred IDE**
+### 대학생 - 이서영 (22세)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- **전공**: 경영학과 3학년
+- **라이프스타일**: 수업, 과제, 동아리 활동, 아르바이트를 병행하는 바쁜 대학생활
+- **목표**: 학업과 개인 활동의 균형을 맞춰 시간을 효율적으로 활용하기
+- **니즈**: 학업 일정 관리, 과제 마감일 추적, 개인 시간 확보, 시험 준비 계획
+- **페인 포인트**: 겹치는 일정 관리의 어려움, 우선순위 설정 문제, 시간 부족
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 📌 사용자 시나리오 및 스토리
 
-Follow these steps:
+### 시나리오 1: 프로젝트 매니저의 주간 계획 수립
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+**상황**: 월요일 아침, 박지현이 새로운 주가 시작되어 이번 주 전체 일정을 파악하고 우선순위를 정하려고 함
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+**사용자 시나리오**:
 
-# Step 3: Install the necessary dependencies.
-npm i
+1. 통합 캘린더 앱을 실행하고 주간 뷰로 전환
+2. 현재 진행 중인 3개 프로젝트(모바일 앱: 파란색, 웹 플랫폼: 초록색, 마케팅: 주황색)의 일정을 색상별로 확인
+3. 이번 주 중요한 미팅과 데드라인을 시각적으로 파악
+4. 빈 시간대를 찾아 새로운 TODO 아이템들을 드래그 앤 드롭으로 배치
+5. 프로젝트 간 스케줄 충돌을 발견하면 우선순위에 따라 일정 조정
+6. 팀원들과 공유할 주요 마일스톤을 선별하여 공유 링크 생성
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+**사용자 스토리**:
 
-**Edit a file directly in GitHub**
+> "프로젝트 매니저로서, 저는 여러 프로젝트의 일정을 색상별로 구분하여 한 눈에 보고 싶습니다. 그래서 프로젝트 간 충돌을 미리 방지하고 효율적으로 시간을 배분할 수 있습니다."
+> 
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### 시나리오 2: 프리랜서의 긴급 프로젝트 추가
 
-**Use GitHub Codespaces**
+**상황**: 김태민에게 급한 브랜딩 프로젝트 의뢰가 들어와 2주 내에 완료해야 하는 상황
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+**사용자 시나리오**:
 
-## What technologies are used for this project?
+1. 새 프로젝트 "A사 브랜딩"을 생성하고 빨간색으로 지정
+2. 프로젝트에 필요한 작업들을 TODO로 추가 (로고 디자인, 브랜드 가이드, 명함 디자인)
+3. 기존 프로젝트들과의 일정 충돌을 확인하기 위해 전체 뷰 확인
+4. 색상 필터를 활용하여 긴급 프로젝트만 집중해서 보기
+5. 다른 프로젝트의 우선순위를 조정하여 긴급 프로젝트를 위한 시간 확보
+6. 클라이언트와의 미팅 일정을 추가하고 관련 TODO를 연결
 
-This project is built with:
+**사용자 스토리**:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+> "프리랜서로서, 저는 급한 프로젝트가 생겼을 때 기존 일정과의 충돌을 빠르게 파악하고 우선순위를 조정하고 싶습니다. 그래서 모든 클라이언트의 요구사항을 효과적으로 만족시킬 수 있습니다."
+> 
 
-## How can I deploy this project?
+### 시나리오 3: 대학생의 시험 기간 관리
 
-Simply open [Lovable](https://lovable.dev/projects/55faa32d-ba11-4b82-8c8a-6c6152cfc6a9) and click on Share -> Publish.
+**상황**: 이서영이 다음 주부터 시작되는 중간고사를 준비하며 학습 계획을 세우려고 함
 
-## Can I connect a custom domain to my Lovable project?
+**사용자 시나리오**:
 
-Yes, you can!
+1. "학업" 캘린더를 선택하고 월간 뷰로 시험 일정 확인
+2. 각 과목별로 다른 색상을 지정 (경영학: 파란색, 통계학: 초록색, 마케팅: 보라색)
+3. 시험 날짜에 맞춰 역산하여 과목별 공부 계획을 TODO로 추가
+4. 동아리 활동과 아르바이트 일정을 확인하여 공부 시간과 겹치지 않도록 조정
+5. 과제 마감일을 우선순위에 따라 정렬하고 완료 상태를 업데이트
+6. 친구들과의 스터디 그룹 일정을 공유 캘린더로 관리
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+**사용자 스토리**:
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+> "대학생으로서, 저는 수업, 과제, 시험 일정을 과목별로 구분하여 체계적으로 관리하고 싶습니다. 그래서 학업 성취도를 높이면서도 개인 시간을 확보할 수 있습니다."
+> 
+
+## 📌 인수 조건
+
+**Given**: 사용자가 통합 캘린더에 접속했을 때
+
+**When**:
+
+- 새 프로젝트를 생성하고 색상을 지정했을 때
+- 프로젝트별 필터를 적용했을 때
+- TODO를 특정 날짜/시간에 드래그했을 때
+- 일정 간 충돌이 발생했을 때
+
+**Then**:
+
+- 2초 이내에 해당 프로젝트 색상이 캘린더에 반영된다
+- 선택한 프로젝트의 일정만 즉시 필터링되어 표시된다
+- TODO가 해당 시간대에 배치되고 프로젝트 색상으로 표시된다
+- 충돌하는 일정에 대한 알림과 조정 옵션을 제공한다
+
+## 📌 핵심 가치 제안
+
+**시각적 프로젝트 관리**: 색상 코딩을 통한 직관적인 프로젝트 구분으로 인지 부하 감소
+
+**통합 일정 관리**: 개인 TODO, 프로젝트 일정, 미팅을 하나의 뷰에서 관리하여 효율성 극대화
+
+**유연한 다중 캘린더**: 계정별 여러 캘린더 생성으로 생활 영역 분리 및 체계적 관리
+
+**실시간 동기화**: 프로젝트 변경사항이 즉시 캘린더에 반영되어 최신 정보 유지
+
+**스마트 필터링**: 필요한 정보만 선별적으로 확인하여 집중력 향상
+
+💡 **팁**: 목업 데이터를 활용하여 실제 사용 환경과 동일한 테스트 환경을 제공합니다.
+
+## 📌 핵심 기능
+
+**멀티 프로젝트 캘린더**: 하나의 캘린더에서 개인 일정, TODO, 여러 프로젝트 마일스톤을 통합 관리
+
+예시: "모바일 앱 개발" 프로젝트(파란색) + "웹사이트 리뉴얼" 프로젝트(초록색) → 색상으로 즉시 구분
+
+**컬러 코딩 시스템**: 프로젝트별 고유 색상 지정으로 시각적 구분 및 필터링
+
+예시: 색상 필터 클릭 → "긴급 프로젝트"만 빨간색으로 표시
+
+**통합 TODO 관리**: 캘린더 내에서 직접 TODO 생성/편집 및 프로젝트 연결
+
+예시: "로고 디자인 완료" TODO를 "A사 브랜딩" 프로젝트에 연결하여 관리
+
+**드래그 앤 드롭 인터페이스**: 직관적인 일정 이동 및 시간 조정
+
+예시: 미팅 일정을 드래그하여 다른 시간대로 즉시 이동
+
+## 📌 구현 범위
+
+**Phase 1: 기본 캘린더 구현 (4주)**
+
+- React + TypeScript 기반 캘린더 컴포넌트 개발
+- 기본 CRUD 기능 (일정 생성/읽기/수정/삭제) 구현
+- 로컬 스토리지를 활용한 데이터 저장 시스템
+
+**Phase 2: 프로젝트 관리 기능 (3주)**
+
+- 프로젝트 생성/편집/삭제 기능 개발
+- 색상 선택기 및 필터링 시스템 구현
+- 프로젝트별 일정 분류 로직 개발
+
+**Phase 3: TODO 통합 시스템 (3주)**
+
+- 캘린더 내 TODO 생성/관리 인터페이스 개발
+- 드래그 앤 드롭을 통한 일정 배치 기능
+- TODO 완료 상태 추적 및 시각적 표시
+
+**Phase 4: 고급 기능 (4주)**
+
+- 멀티 캘린더 지원 시스템
+- 일정 공유 및 협업 기능
+- 반응형 모바일 최적화 및 성능 개선
+
+실제 AI 연동 없이 목업(Mocking) 데이터로 구현하여 UI/UX와 기본적인 사용자 흐름을 검증하는 프로토타입 수준으로 개발합니다.
+
+## 📌 요구사항 도출
+
+| 페르소나 | 시나리오 | 핵심 요구사항 |
+| --- | --- | --- |
+| **프로젝트 매니저** | 주간 계획 수립 | 1. 프로젝트별 색상 구분 기능<br>2. 주간/월간 뷰 전환 기능<br>3. 드래그 앤 드롭 일정 이동<br>4. 스케줄 충돌 감지 기능<br>5. 팀 공유 기능 |
+| **프리랜서** | 긴급 프로젝트 추가 | 1. 신규 프로젝트 생성 및 색상 지정<br>2. TODO와 프로젝트 연결 기능<br>3. 색상 필터링 기능<br>4. 우선순위 조정 기능<br>5. 클라이언트별 프로젝트 분류 |
+| **대학생** | 시험 기간 관리 | 1. 다중 캘린더 지원 (학업/개인)<br>2. 과목별 색상 분류<br>3. 마감일 기반 역산 계획<br>4. TODO 완료 상태 추적<br>5. 공유 캘린더 기능 |
+
+---
+
+> 💡 개발 팁: 초기 MVP는 단일 캘린더 + 기본 프로젝트 관리 기능으로 시작하여 사용자 피드백을 바탕으로 점진적 개선을 진행하는 것을 권장합니다.
+>
