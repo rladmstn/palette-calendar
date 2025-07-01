@@ -2,8 +2,9 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Project, Todo } from '@/types';
-import { Edit, Trash2, Check } from 'lucide-react';
+import { Edit, Trash2, CheckCircle } from 'lucide-react';
 
 interface TodoItemProps {
   todo: Todo;
@@ -59,7 +60,12 @@ const TodoItem: React.FC<TodoItemProps> = ({
         draggable={draggable}
         onDragStart={handleDragStart}
       >
-        <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-2 mb-1">
+          <Checkbox
+            checked={todo.completed}
+            onCheckedChange={onComplete}
+            className="h-3 w-3"
+          />
           <span className={`flex-1 ${todo.completed ? 'line-through text-gray-500' : 'text-gray-900'}`}>
             {todo.title}
           </span>
@@ -67,22 +73,31 @@ const TodoItem: React.FC<TodoItemProps> = ({
             <Button
               onClick={(e) => {
                 e.stopPropagation();
-                onComplete();
+                onEdit();
               }}
               variant="ghost"
               size="sm"
-              className="h-6 w-6 p-0"
+              className="h-5 w-5 p-0"
             >
-              <Check className="h-3 w-3" />
+              <Edit className="h-2 w-2" />
             </Button>
           </div>
         </div>
         
         {project && (
-          <div className="mt-1">
+          <div className="mt-1 flex items-center space-x-2">
+            <div
+              className="w-2 h-2 rounded-full"
+              style={{ backgroundColor: project.color }}
+            />
             <span className="text-xs font-medium" style={{ color: project.color }}>
               {project.name}
             </span>
+            {project.isShared && (
+              <Badge variant="outline" className="text-xs px-1">
+                공유됨
+              </Badge>
+            )}
           </div>
         )}
       </div>
@@ -101,51 +116,48 @@ const TodoItem: React.FC<TodoItemProps> = ({
     >
       <div className="flex items-start justify-between">
         <div className="flex-1">
-          <div className="flex items-center space-x-2 mb-2">
-            {project && (
-              <div
-                className="w-3 h-3 rounded-full"
-                style={{ backgroundColor: project.color }}
-              />
-            )}
-            <h4 className={`font-medium ${
-              todo.completed ? 'line-through text-gray-500' : 'text-gray-900'
-            }`}>
-              {todo.title}
-            </h4>
-          </div>
-          
-          {todo.description && (
-            <p className="text-sm text-gray-600 mb-2">{todo.description}</p>
-          )}
-          
-          <div className="flex items-center space-x-2">
-            <Badge className={getPriorityColor(todo.priority)}>
-              {getPriorityText(todo.priority)}
-            </Badge>
-            
-            {project && (
-              <Badge variant="outline" style={{ color: project.color, borderColor: project.color }}>
-                {project.name}
-              </Badge>
-            )}
+          <div className="flex items-start space-x-3 mb-2">
+            <Checkbox
+              checked={todo.completed}
+              onCheckedChange={onComplete}
+              className="h-4 w-4 mt-1"
+            />
+            <div className="flex-1">
+              <div className="flex items-center space-x-2 mb-1">
+                {project && (
+                  <div
+                    className="w-3 h-3 rounded-full"
+                    style={{ backgroundColor: project.color }}
+                  />
+                )}
+                <h4 className={`font-medium ${
+                  todo.completed ? 'line-through text-gray-500' : 'text-gray-900'
+                }`}>
+                  {todo.title}
+                </h4>
+              </div>
+              
+              {todo.description && (
+                <p className="text-sm text-gray-600 mb-2">{todo.description}</p>
+              )}
+              
+              <div className="flex items-center space-x-2">
+                <Badge className={getPriorityColor(todo.priority)}>
+                  {getPriorityText(todo.priority)}
+                </Badge>
+                
+                {project && (
+                  <Badge variant="outline" style={{ color: project.color, borderColor: project.color }}>
+                    {project.name}
+                    {project.isShared && <span className="ml-1">👥</span>}
+                  </Badge>
+                )}
+              </div>
+            </div>
           </div>
         </div>
 
         <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
-          <Button
-            onClick={onComplete}
-            variant="ghost"
-            size="sm"
-            className={`h-8 w-8 p-0 ${
-              todo.completed 
-                ? 'text-green-600 hover:text-green-700' 
-                : 'text-gray-400 hover:text-green-600'
-            }`}
-          >
-            <Check className="h-4 w-4" />
-          </Button>
-          
           <Button
             onClick={onEdit}
             variant="ghost"

@@ -4,6 +4,7 @@ import CalendarView from '@/components/CalendarView';
 import ProjectSidebar from '@/components/ProjectSidebar';
 import Header from '@/components/Header';
 import TodoModal from '@/components/TodoModal';
+import EventModal from '@/components/EventModal';
 import ProjectModal from '@/components/ProjectModal';
 import { mockProjects, mockTodos, mockEvents } from '@/data/mockData';
 import { Project, Todo, CalendarEvent } from '@/types';
@@ -16,8 +17,10 @@ const Index = () => {
   const [events, setEvents] = useState<CalendarEvent[]>(mockEvents);
   const [filteredProjects, setFilteredProjects] = useState<string[]>([]);
   const [showTodoModal, setShowTodoModal] = useState(false);
+  const [showEventModal, setShowEventModal] = useState(false);
   const [showProjectModal, setShowProjectModal] = useState(false);
   const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
+  const [editingEvent, setEditingEvent] = useState<CalendarEvent | null>(null);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
 
   const handleProjectFilter = (projectIds: string[]) => {
@@ -45,11 +48,32 @@ const Index = () => {
     setTodos(todos.filter(todo => todo.id !== todoId));
   };
 
+  const handleCreateEvent = (eventData: any) => {
+    const newEvent: CalendarEvent = {
+      id: Date.now().toString(),
+      ...eventData,
+    };
+    setEvents([...events, newEvent]);
+    setShowEventModal(false);
+  };
+
+  const handleUpdateEvent = (updatedEvent: CalendarEvent) => {
+    setEvents(events.map(event => event.id === updatedEvent.id ? updatedEvent : event));
+    setEditingEvent(null);
+    setShowEventModal(false);
+  };
+
+  const handleDeleteEvent = (eventId: string) => {
+    setEvents(events.filter(event => event.id !== eventId));
+  };
+
   const handleCreateProject = (projectData: { name: string; color: string; description?: string }) => {
     const newProject: Project = {
       id: Date.now().toString(),
       ...projectData,
       createdAt: new Date(),
+      members: [],
+      isShared: false,
     };
     setProjects([...projects, newProject]);
     setShowProjectModal(false);
@@ -78,7 +102,9 @@ const Index = () => {
     : todos;
 
   const filteredEvents = filteredProjects.length > 0
-    ? events.filter(event => event.projectId && filteredProjects.includes(event.projectId))
+    ? events.filter(event => 
+        event.isPersonal || (event.projectId && filteredProjects.includes(event.projectId))
+      )
     : events;
 
   return (
@@ -89,6 +115,7 @@ const Index = () => {
         selectedDate={selectedDate}
         onDateChange={setSelectedDate}
         onCreateTodo={() => setShowTodoModal(true)}
+        onCreateEvent={() => setShowEventModal(true)}
         onCreateProject={() => setShowProjectModal(true)}
       />
       
@@ -122,6 +149,11 @@ const Index = () => {
                 todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
               ));
             }}
+            onEventEdit={(event) => {
+              setEditingEvent(event);
+              setShowEventModal(true);
+            }}
+            onEventDelete={handleDeleteEvent}
           />
         </main>
       </div>
@@ -136,6 +168,19 @@ const Index = () => {
           onSave={editingTodo ? handleUpdateTodo : handleCreateTodo}
           projects={projects}
           editingTodo={editingTodo}
+        />
+      )}
+
+      {showEventModal && (
+        <EventModal
+          isOpen={showEventModal}
+          onClose={() => {
+            setShowEventModal(false);
+            setEditingEvent(null);
+          }}
+          onSave={editingEvent ? handleUpdateEvent : handleCreateEvent}
+          projects={projects}
+          editingEvent={editingEvent}
         />
       )}
 

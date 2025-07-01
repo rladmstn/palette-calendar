@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Project, Todo, CalendarEvent } from '@/types';
 import TodoItem from './TodoItem';
@@ -13,6 +12,8 @@ interface WeekViewProps {
   onTodoEdit: (todo: Todo) => void;
   onTodoDelete: (todoId: string) => void;
   onTodoComplete: (todoId: string) => void;
+  onEventEdit: (event: CalendarEvent) => void;
+  onEventDelete: (eventId: string) => void;
   getProjectById: (projectId: string) => Project | undefined;
 }
 
@@ -25,6 +26,8 @@ const WeekView: React.FC<WeekViewProps> = ({
   onTodoEdit,
   onTodoDelete,
   onTodoComplete,
+  onEventEdit,
+  onEventDelete,
   getProjectById,
 }) => {
   const getWeekDays = (date: Date) => {
@@ -112,11 +115,17 @@ const WeekView: React.FC<WeekViewProps> = ({
               <div className="space-y-2">
                 {/* 이벤트 표시 */}
                 {dayEvents.map((event) => (
-                  <EventItem
+                  <div
                     key={event.id}
-                    event={event}
-                    project={getProjectById(event.projectId || '')}
-                  />
+                    onClick={() => onEventEdit(event)}
+                    className="cursor-pointer"
+                  >
+                    <EventItem
+                      event={event}
+                      project={getProjectById(event.projectId || '')}
+                      compact
+                    />
+                  </div>
                 ))}
                 
                 {/* TODO 표시 */}
@@ -128,6 +137,7 @@ const WeekView: React.FC<WeekViewProps> = ({
                     onEdit={() => onTodoEdit(todo)}
                     onDelete={() => onTodoDelete(todo.id)}
                     onComplete={() => onTodoComplete(todo.id)}
+                    compact
                     draggable
                   />
                 ))}

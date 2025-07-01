@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Project, Todo, CalendarEvent } from '@/types';
 import TodoItem from './TodoItem';
@@ -13,6 +12,8 @@ interface MonthViewProps {
   onTodoEdit: (todo: Todo) => void;
   onTodoDelete: (todoId: string) => void;
   onTodoComplete: (todoId: string) => void;
+  onEventEdit: (event: CalendarEvent) => void;
+  onEventDelete: (eventId: string) => void;
   getProjectById: (projectId: string) => Project | undefined;
 }
 
@@ -25,6 +26,8 @@ const MonthView: React.FC<MonthViewProps> = ({
   onTodoEdit,
   onTodoDelete,
   onTodoComplete,
+  onEventEdit,
+  onEventDelete,
   getProjectById,
 }) => {
   const getMonthDays = (date: Date) => {
@@ -98,7 +101,7 @@ const MonthView: React.FC<MonthViewProps> = ({
         {monthDays.map((day, index) => {
           const dayTodos = getTodosForDate(day);
           const dayEvents = getEventsForDate(day);
-          const showMax = 3; // 최대 표시할 아이템 수
+          const showMax = 3;
           const totalItems = dayTodos.length + dayEvents.length;
           const hasMore = totalItems > showMax;
           
@@ -121,12 +124,17 @@ const MonthView: React.FC<MonthViewProps> = ({
               <div className="space-y-1">
                 {/* 이벤트 표시 */}
                 {dayEvents.slice(0, showMax - dayTodos.length).map((event) => (
-                  <EventItem
+                  <div
                     key={event.id}
-                    event={event}
-                    project={getProjectById(event.projectId || '')}
-                    compact
-                  />
+                    onClick={() => onEventEdit(event)}
+                    className="cursor-pointer"
+                  >
+                    <EventItem
+                      event={event}
+                      project={getProjectById(event.projectId || '')}
+                      compact
+                    />
+                  </div>
                 ))}
                 
                 {/* TODO 표시 */}

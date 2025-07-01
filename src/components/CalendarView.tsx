@@ -14,6 +14,8 @@ interface CalendarViewProps {
   onTodoEdit: (todo: Todo) => void;
   onTodoDelete: (todoId: string) => void;
   onTodoComplete: (todoId: string) => void;
+  onEventEdit: (event: CalendarEvent) => void;
+  onEventDelete: (eventId: string) => void;
 }
 
 const CalendarView: React.FC<CalendarViewProps> = ({
@@ -26,6 +28,8 @@ const CalendarView: React.FC<CalendarViewProps> = ({
   onTodoEdit,
   onTodoDelete,
   onTodoComplete,
+  onEventEdit,
+  onEventDelete,
 }) => {
   const getProjectById = (projectId: string) => {
     return projects.find(p => p.id === projectId);
@@ -42,6 +46,8 @@ const CalendarView: React.FC<CalendarViewProps> = ({
         onTodoEdit={onTodoEdit}
         onTodoDelete={onTodoDelete}
         onTodoComplete={onTodoComplete}
+        onEventEdit={onEventEdit}
+        onEventDelete={onEventDelete}
         getProjectById={getProjectById}
       />
     );
@@ -57,6 +63,8 @@ const CalendarView: React.FC<CalendarViewProps> = ({
       onTodoEdit={onTodoEdit}
       onTodoDelete={onTodoDelete}
       onTodoComplete={onTodoComplete}
+      onEventEdit={onEventEdit}
+      onEventDelete={onEventDelete}
       getProjectById={getProjectById}
     />
   );

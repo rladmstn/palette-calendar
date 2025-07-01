@@ -5,6 +5,8 @@ export interface Project {
   color: string;
   description?: string;
   createdAt: Date;
+  members?: string[]; // 프로젝트 멤버 이메일 목록
+  isShared?: boolean;
 }
 
 export interface Todo {
@@ -25,8 +27,9 @@ export interface CalendarEvent {
   startTime: string;
   endTime: string;
   projectId?: string;
-  type: 'meeting' | 'deadline' | 'event';
+  type: 'meeting' | 'deadline' | 'event' | 'personal';
   description?: string;
+  isPersonal?: boolean; // 개인 일정 여부
 }
 
 export interface User {

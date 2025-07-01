@@ -8,6 +8,8 @@ export const mockProjects: Project[] = [
     color: '#3B82F6',
     description: '새로운 모바일 애플리케이션 개발 프로젝트',
     createdAt: new Date('2024-06-01'),
+    members: ['john@example.com', 'sarah@example.com'],
+    isShared: true,
   },
   {
     id: '2',
@@ -15,6 +17,8 @@ export const mockProjects: Project[] = [
     color: '#10B981',
     description: '회사 웹사이트 전면 리뉴얼',
     createdAt: new Date('2024-06-15'),
+    members: ['mike@example.com'],
+    isShared: true,
   },
   {
     id: '3',
@@ -22,6 +26,8 @@ export const mockProjects: Project[] = [
     color: '#EF4444',
     description: '긴급 브랜딩 프로젝트',
     createdAt: new Date('2024-07-01'),
+    members: [],
+    isShared: false,
   },
   {
     id: '4',
@@ -29,6 +35,8 @@ export const mockProjects: Project[] = [
     color: '#8B5CF6',
     description: '대학교 수업 및 과제 관리',
     createdAt: new Date('2024-03-01'),
+    members: [],
+    isShared: false,
   },
   {
     id: '5',
@@ -36,6 +44,8 @@ export const mockProjects: Project[] = [
     color: '#F59E0B',
     description: '신제품 마케팅 캠페인',
     createdAt: new Date('2024-06-20'),
+    members: ['alex@example.com'],
+    isShared: true,
   },
 ];
 
@@ -117,6 +127,7 @@ export const mockEvents: CalendarEvent[] = [
     projectId: '1',
     type: 'meeting',
     description: '주간 진행상황 공유',
+    isPersonal: false,
   },
   {
     id: '2',
@@ -126,6 +137,7 @@ export const mockEvents: CalendarEvent[] = [
     endTime: '15:30',
     projectId: '2',
     type: 'meeting',
+    isPersonal: false,
   },
   {
     id: '3',
@@ -135,6 +147,7 @@ export const mockEvents: CalendarEvent[] = [
     endTime: '18:00',
     projectId: '3',
     type: 'deadline',
+    isPersonal: false,
   },
   {
     id: '4',
@@ -144,6 +157,7 @@ export const mockEvents: CalendarEvent[] = [
     endTime: '12:00',
     projectId: '4',
     type: 'event',
+    isPersonal: false,
   },
   {
     id: '5',
@@ -153,5 +167,26 @@ export const mockEvents: CalendarEvent[] = [
     endTime: '17:30',
     projectId: '5',
     type: 'meeting',
+    isPersonal: false,
+  },
+  {
+    id: '6',
+    title: '친구들과 저녁식사',
+    date: new Date('2024-07-02'),
+    startTime: '19:00',
+    endTime: '21:00',
+    type: 'personal',
+    description: '대학 동기들과의 만남',
+    isPersonal: true,
+  },
+  {
+    id: '7',
+    title: '부산 여행',
+    date: new Date('2024-07-06'),
+    startTime: '09:00',
+    endTime: '18:00',
+    type: 'personal',
+    description: '주말 휴식',
+    isPersonal: true,
   },
 ];
