@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { CalendarCheck, Plus, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -9,6 +8,7 @@ interface HeaderProps {
   selectedDate: Date;
   onDateChange: (date: Date) => void;
   onCreateTodo: () => void;
+  onCreateEvent: () => void;
   onCreateProject: () => void;
 }
 
@@ -18,6 +18,7 @@ const Header: React.FC<HeaderProps> = ({
   selectedDate,
   onDateChange,
   onCreateTodo,
+  onCreateEvent,
   onCreateProject,
 }) => {
   const formatDate = (date: Date) => {
@@ -117,6 +118,15 @@ const Header: React.FC<HeaderProps> = ({
             >
               <Plus className="h-4 w-4 mr-2" />
               TODO 추가
+            </Button>
+            
+            <Button
+              onClick={onCreateEvent}
+              className="bg-green-600 hover:bg-green-700 text-white"
+              size="sm"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              일정 추가
             </Button>
             
             <Button
