@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import CalendarView from '@/components/CalendarView';
 import ProjectSidebar from '@/components/ProjectSidebar';
@@ -16,6 +15,7 @@ const Index = () => {
   const [todos, setTodos] = useState<Todo[]>(mockTodos);
   const [events, setEvents] = useState<CalendarEvent[]>(mockEvents);
   const [filteredProjects, setFilteredProjects] = useState<string[]>([]);
+  const [showPersonalOnly, setShowPersonalOnly] = useState(false);
   const [showTodoModal, setShowTodoModal] = useState(false);
   const [showEventModal, setShowEventModal] = useState(false);
   const [showProjectModal, setShowProjectModal] = useState(false);
@@ -25,6 +25,13 @@ const Index = () => {
 
   const handleProjectFilter = (projectIds: string[]) => {
     setFilteredProjects(projectIds);
+  };
+
+  const handleTogglePersonalFilter = () => {
+    setShowPersonalOnly(!showPersonalOnly);
+    if (!showPersonalOnly) {
+      setFilteredProjects([]);
+    }
   };
 
   const handleCreateTodo = (todoData: { title: string; projectId: string; date: Date; priority: 'low' | 'medium' | 'high' }) => {
@@ -97,15 +104,19 @@ const Index = () => {
     ));
   };
 
-  const filteredTodos = filteredProjects.length > 0 
-    ? todos.filter(todo => filteredProjects.includes(todo.projectId))
-    : todos;
+  const filteredTodos = showPersonalOnly 
+    ? [] // 개인 일정 필터일 때는 TODO 숨김
+    : filteredProjects.length > 0 
+      ? todos.filter(todo => filteredProjects.includes(todo.projectId))
+      : todos;
 
-  const filteredEvents = filteredProjects.length > 0
-    ? events.filter(event => 
-        event.isPersonal || (event.projectId && filteredProjects.includes(event.projectId))
-      )
-    : events;
+  const filteredEvents = showPersonalOnly
+    ? events.filter(event => event.isPersonal)
+    : filteredProjects.length > 0
+      ? events.filter(event => 
+          event.isPersonal || (event.projectId && filteredProjects.includes(event.projectId))
+        )
+      : events;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
@@ -129,6 +140,8 @@ const Index = () => {
             setShowProjectModal(true);
           }}
           onDeleteProject={handleDeleteProject}
+          showPersonalOnly={showPersonalOnly}
+          onTogglePersonalFilter={handleTogglePersonalFilter}
         />
         
         <main className="flex-1 p-6">

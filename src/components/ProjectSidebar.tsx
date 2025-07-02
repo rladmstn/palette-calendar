@@ -3,7 +3,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Project } from '@/types';
-import { Filter, Edit, Trash2 } from 'lucide-react';
+import { Filter, Edit, Trash2, Share, User } from 'lucide-react';
 
 interface ProjectSidebarProps {
   projects: Project[];
@@ -11,6 +11,8 @@ interface ProjectSidebarProps {
   filteredProjects: string[];
   onEditProject: (project: Project) => void;
   onDeleteProject: (projectId: string) => void;
+  showPersonalOnly: boolean;
+  onTogglePersonalFilter: () => void;
 }
 
 const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
@@ -19,6 +21,8 @@ const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
   filteredProjects,
   onEditProject,
   onDeleteProject,
+  showPersonalOnly,
+  onTogglePersonalFilter,
 }) => {
   const toggleProjectFilter = (projectId: string) => {
     if (filteredProjects.includes(projectId)) {
@@ -32,6 +36,13 @@ const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
     onProjectFilter([]);
   };
 
+  const handleShareProject = (project: Project, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const shareUrl = `${window.location.origin}/project/invite/${project.id}`;
+    navigator.clipboard.writeText(shareUrl);
+    alert(`프로젝트 공유 링크가 복사되었습니다!\n${shareUrl}`);
+  };
+
   return (
     <aside className="w-80 bg-white border-r border-gray-200 h-screen overflow-y-auto">
       <div className="p-6">
@@ -40,9 +51,12 @@ const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
             <Filter className="h-5 w-5 mr-2 text-blue-600" />
             프로젝트 필터
           </h3>
-          {filteredProjects.length > 0 && (
+          {(filteredProjects.length > 0 || showPersonalOnly) && (
             <Button
-              onClick={clearAllFilters}
+              onClick={() => {
+                clearAllFilters();
+                if (showPersonalOnly) onTogglePersonalFilter();
+              }}
               variant="ghost"
               size="sm"
               className="text-blue-600 hover:text-blue-800"
@@ -52,10 +66,39 @@ const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
           )}
         </div>
 
+        {/* 개인 일정 필터 */}
+        <div className="mb-4">
+          <div
+            className={`group p-3 rounded-lg border-2 transition-all cursor-pointer ${
+              showPersonalOnly
+                ? 'border-blue-300 bg-blue-50 shadow-sm'
+                : 'border-gray-200 bg-gray-50 hover:border-gray-300'
+            }`}
+            onClick={onTogglePersonalFilter}
+          >
+            <div className="flex items-center space-x-3">
+              <div className="w-4 h-4 rounded-full bg-gray-400 flex items-center justify-center">
+                <User className="h-2.5 w-2.5 text-white" />
+              </div>
+              <div className="flex-1">
+                <h4 className="font-medium text-gray-900">개인 일정</h4>
+                <p className="text-sm text-gray-500">개인적인 약속과 활동</p>
+              </div>
+            </div>
+            {showPersonalOnly && (
+              <div className="mt-2">
+                <Badge variant="secondary" className="text-xs">
+                  필터 적용됨
+                </Badge>
+              </div>
+            )}
+          </div>
+        </div>
+
         <div className="space-y-3">
           {projects.map((project) => {
             const isFiltered = filteredProjects.includes(project.id);
-            const isActive = filteredProjects.length === 0 || isFiltered;
+            const isActive = (filteredProjects.length === 0 && !showPersonalOnly) || isFiltered;
 
             return (
               <div
@@ -74,16 +117,36 @@ const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
                       style={{ backgroundColor: project.color }}
                     />
                     <div className="flex-1">
-                      <h4 className="font-medium text-gray-900">{project.name}</h4>
+                      <div className="flex items-center space-x-2">
+                        <h4 className="font-medium text-gray-900">{project.name}</h4>
+                        {project.isShared && (
+                          <Badge variant="outline" className="text-xs">
+                            공유됨
+                          </Badge>
+                        )}
+                      </div>
                       {project.description && (
                         <p className="text-sm text-gray-500 mt-1">
                           {project.description}
+                        </p>
+                      )}
+                      {project.members && project.members.length > 0 && (
+                        <p className="text-xs text-blue-600 mt-1">
+                          멤버 {project.members.length}명
                         </p>
                       )}
                     </div>
                   </div>
 
                   <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Button
+                      onClick={(e) => handleShareProject(project, e)}
+                      variant="ghost"
+                      size="sm"
+                      className="h-8 w-8 p-0 text-gray-400 hover:text-green-600"
+                    >
+                      <Share className="h-4 w-4" />
+                    </Button>
                     <Button
                       onClick={(e) => {
                         e.stopPropagation();
@@ -136,6 +199,8 @@ const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
             <li>• 프로젝트를 클릭하면 해당 일정만 표시됩니다</li>
             <li>• 여러 프로젝트를 동시에 선택할 수 있습니다</li>
             <li>• 색상으로 프로젝트를 쉽게 구분하세요</li>
+            <li>• 공유 버튼으로 팀원을 초대할 수 있습니다</li>
+            <li>• 개인 일정만 따로 볼 수도 있습니다</li>
           </ul>
         </div>
       </div>
