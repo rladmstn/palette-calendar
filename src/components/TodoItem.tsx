@@ -66,7 +66,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
             onCheckedChange={onComplete}
             className="h-3 w-3 border-slate-400"
           />
-          <span className={`flex-1 ${todo.completed ? 'line-through text-slate-500' : 'text-slate-200'}`}>
+          <span className={`flex-1 ${todo.completed ? 'line-through text-slate-500' : 'text-gray-900 font-medium'}`}>
             {todo.title}
           </span>
           <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -131,7 +131,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
                   />
                 )}
                 <h4 className={`font-medium ${
-                  todo.completed ? 'line-through text-slate-500' : 'text-slate-200'
+                  todo.completed ? 'line-through text-slate-500' : 'text-gray-900 font-semibold'
                 }`}>
                   {todo.title}
                 </h4>
