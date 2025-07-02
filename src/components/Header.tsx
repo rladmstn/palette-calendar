@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { CalendarCheck, Plus, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -39,34 +40,38 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="bg-white border-b border-gray-200 shadow-sm">
-      <div className="px-6 py-4">
+    <header className="bg-gradient-to-r from-blue-50 to-indigo-100 border-b border-blue-200 shadow-lg">
+      <div className="px-6 py-5">
         <div className="flex items-center justify-between">
           {/* 로고 및 제목 */}
           <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-2">
-              <CalendarCheck className="h-8 w-8 text-blue-600" />
-              <h1 className="text-2xl font-bold text-gray-900">통합 캘린더</h1>
+            <div className="flex items-center space-x-3">
+              <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl">
+                <CalendarCheck className="h-8 w-8 text-white" />
+              </div>
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-700 to-purple-700 bg-clip-text text-transparent">
+                Palette Calendar
+              </h1>
             </div>
             
             {/* 뷰 전환 버튼 */}
-            <div className="flex bg-gray-100 rounded-lg p-1">
+            <div className="flex bg-white/70 backdrop-blur-sm rounded-xl p-1 shadow-sm border border-white/20">
               <button
                 onClick={() => onViewChange('week')}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
                   currentView === 'week'
-                    ? 'bg-white text-blue-600 shadow-sm'
-                    : 'text-gray-600 hover:text-gray-900'
+                    ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md'
+                    : 'text-gray-600 hover:text-blue-700 hover:bg-white/50'
                 }`}
               >
                 주간
               </button>
               <button
                 onClick={() => onViewChange('month')}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
                   currentView === 'month'
-                    ? 'bg-white text-blue-600 shadow-sm'
-                    : 'text-gray-600 hover:text-gray-900'
+                    ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md'
+                    : 'text-gray-600 hover:text-blue-700 hover:bg-white/50'
                 }`}
               >
                 월간
@@ -76,17 +81,17 @@ const Header: React.FC<HeaderProps> = ({
 
           {/* 날짜 네비게이션 */}
           <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-3 bg-white/70 backdrop-blur-sm rounded-xl px-4 py-2 shadow-sm border border-white/20">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => navigateDate('prev')}
-                className="h-8 w-8 p-0"
+                className="h-9 w-9 p-0 hover:bg-blue-100 rounded-lg"
               >
-                <ChevronLeft className="h-4 w-4" />
+                <ChevronLeft className="h-5 w-5" />
               </Button>
               
-              <h2 className="text-lg font-semibold text-gray-900 min-w-[120px] text-center">
+              <h2 className="text-lg font-semibold text-gray-800 min-w-[140px] text-center">
                 {formatDate(selectedDate)}
               </h2>
               
@@ -94,15 +99,15 @@ const Header: React.FC<HeaderProps> = ({
                 variant="ghost"
                 size="sm"
                 onClick={() => navigateDate('next')}
-                className="h-8 w-8 p-0"
+                className="h-9 w-9 p-0 hover:bg-blue-100 rounded-lg"
               >
-                <ChevronRight className="h-4 w-4" />
+                <ChevronRight className="h-5 w-5" />
               </Button>
             </div>
 
             <Button
               onClick={() => onDateChange(new Date())}
-              variant="outline"
+              className="bg-white/80 hover:bg-white text-blue-700 border border-blue-200 font-semibold px-4 py-2 rounded-lg shadow-sm"
               size="sm"
             >
               오늘
@@ -110,10 +115,10 @@ const Header: React.FC<HeaderProps> = ({
           </div>
 
           {/* 액션 버튼들 */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-3">
             <Button
               onClick={onCreateTodo}
-              className="bg-blue-600 hover:bg-blue-700 text-white"
+              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
               size="sm"
             >
               <Plus className="h-4 w-4 mr-2" />
@@ -122,7 +127,7 @@ const Header: React.FC<HeaderProps> = ({
             
             <Button
               onClick={onCreateEvent}
-              className="bg-green-600 hover:bg-green-700 text-white"
+              className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
               size="sm"
             >
               <Plus className="h-4 w-4 mr-2" />
@@ -131,7 +136,7 @@ const Header: React.FC<HeaderProps> = ({
             
             <Button
               onClick={onCreateProject}
-              variant="outline"
+              className="bg-white/90 hover:bg-white text-gray-700 border border-gray-200 font-semibold shadow-md hover:shadow-lg transition-all duration-200"
               size="sm"
             >
               <Plus className="h-4 w-4 mr-2" />
