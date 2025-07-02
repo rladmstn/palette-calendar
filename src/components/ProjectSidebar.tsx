@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -12,6 +13,7 @@ interface ProjectSidebarProps {
   onDeleteProject: (projectId: string) => void;
   showPersonalOnly: boolean;
   onTogglePersonalFilter: () => void;
+  isDarkMode: boolean;
 }
 
 const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
@@ -22,6 +24,7 @@ const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
   onDeleteProject,
   showPersonalOnly,
   onTogglePersonalFilter,
+  isDarkMode,
 }) => {
   const toggleProjectFilter = (projectId: string) => {
     if (filteredProjects.includes(projectId)) {
@@ -43,11 +46,19 @@ const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
   };
 
   return (
-    <aside className="w-80 bg-slate-900 border-r border-slate-700 h-screen overflow-y-auto">
+    <aside className={`w-80 border-r h-screen overflow-y-auto ${
+      isDarkMode 
+        ? 'bg-slate-900 border-slate-700' 
+        : 'bg-white border-gray-200'
+    }`}>
       <div className="p-6">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-slate-100 flex items-center">
-            <Filter className="h-5 w-5 mr-2 text-purple-400" />
+          <h3 className={`text-lg font-semibold flex items-center ${
+            isDarkMode ? 'text-slate-100' : 'text-gray-900'
+          }`}>
+            <Filter className={`h-5 w-5 mr-2 ${
+              isDarkMode ? 'text-purple-400' : 'text-purple-600'
+            }`} />
             프로젝트 필터
           </h3>
           {(filteredProjects.length > 0 || showPersonalOnly) && (
@@ -58,7 +69,11 @@ const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
               }}
               variant="ghost"
               size="sm"
-              className="text-purple-400 hover:text-purple-300 hover:bg-slate-800"
+              className={`${
+                isDarkMode 
+                  ? 'text-purple-400 hover:text-purple-300 hover:bg-slate-800' 
+                  : 'text-purple-600 hover:text-purple-500 hover:bg-purple-50'
+              }`}
             >
               전체 보기
             </Button>
@@ -70,23 +85,37 @@ const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
           <div
             className={`group p-3 rounded-lg border-2 transition-all cursor-pointer ${
               showPersonalOnly
-                ? 'border-purple-400 bg-purple-900/30 shadow-sm'
-                : 'border-slate-600 bg-slate-800/50 hover:border-slate-500'
+                ? isDarkMode
+                  ? 'border-purple-400 bg-purple-900/30 shadow-sm'
+                  : 'border-purple-500 bg-purple-50 shadow-sm'
+                : isDarkMode
+                  ? 'border-slate-600 bg-slate-800/50 hover:border-slate-500'
+                  : 'border-gray-300 bg-gray-50 hover:border-gray-400'
             }`}
             onClick={onTogglePersonalFilter}
           >
             <div className="flex items-center space-x-3">
-              <div className="w-4 h-4 rounded-full bg-slate-500 flex items-center justify-center">
+              <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
+                isDarkMode ? 'bg-slate-500' : 'bg-gray-500'
+              }`}>
                 <User className="h-2.5 w-2.5 text-white" />
               </div>
               <div className="flex-1">
-                <h4 className="font-medium text-slate-100">개인 일정</h4>
-                <p className="text-sm text-slate-400">개인적인 약속과 활동</p>
+                <h4 className={`font-medium ${
+                  isDarkMode ? 'text-slate-100' : 'text-gray-900'
+                }`}>개인 일정</h4>
+                <p className={`text-sm ${
+                  isDarkMode ? 'text-slate-400' : 'text-gray-600'
+                }`}>개인적인 약속과 활동</p>
               </div>
             </div>
             {showPersonalOnly && (
               <div className="mt-2">
-                <Badge variant="secondary" className="text-xs bg-slate-700 text-slate-300">
+                <Badge variant="secondary" className={`text-xs ${
+                  isDarkMode 
+                    ? 'bg-slate-700 text-slate-300' 
+                    : 'bg-gray-200 text-gray-700'
+                }`}>
                   필터 적용됨
                 </Badge>
               </div>
@@ -104,33 +133,49 @@ const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
                 key={project.id}
                 className={`group p-4 rounded-lg border-2 transition-all cursor-pointer ${
                   isActive
-                    ? 'border-slate-500 bg-slate-800 shadow-sm'
-                    : 'border-slate-700 bg-slate-800/30 opacity-60'
+                    ? isDarkMode
+                      ? 'border-slate-500 bg-slate-800 shadow-sm'
+                      : 'border-gray-400 bg-white shadow-sm'
+                    : isDarkMode
+                      ? 'border-slate-700 bg-slate-800/30 opacity-60'
+                      : 'border-gray-300 bg-gray-50/50 opacity-60'
                 }`}
                 onClick={() => toggleProjectFilter(project.id)}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3 flex-1">
                     <div
-                      className="w-4 h-4 rounded-full border-2 border-slate-300 shadow-sm"
+                      className={`w-4 h-4 rounded-full border-2 shadow-sm ${
+                        isDarkMode ? 'border-slate-300' : 'border-gray-400'
+                      }`}
                       style={{ backgroundColor: project.color }}
                     />
                     <div className="flex-1">
                       <div className="flex items-center space-x-2">
-                        <h4 className="font-medium text-slate-100">{project.name}</h4>
+                        <h4 className={`font-medium ${
+                          isDarkMode ? 'text-slate-100' : 'text-gray-900'
+                        }`}>{project.name}</h4>
                         {project.isShared && (
-                          <Badge variant="outline" className="text-xs border-slate-600 text-slate-300">
+                          <Badge variant="outline" className={`text-xs ${
+                            isDarkMode 
+                              ? 'border-slate-600 text-slate-300' 
+                              : 'border-gray-400 text-gray-600'
+                          }`}>
                             공유됨
                           </Badge>
                         )}
                       </div>
                       {project.description && (
-                        <p className="text-sm text-slate-400 mt-1">
+                        <p className={`text-sm mt-1 ${
+                          isDarkMode ? 'text-slate-400' : 'text-gray-600'
+                        }`}>
                           {project.description}
                         </p>
                       )}
                       {project.members && project.members.length > 0 && (
-                        <p className="text-xs text-purple-400 mt-1">
+                        <p className={`text-xs mt-1 ${
+                          isDarkMode ? 'text-purple-400' : 'text-purple-600'
+                        }`}>
                           멤버 {project.members.length}명
                         </p>
                       )}
@@ -142,7 +187,11 @@ const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
                       onClick={(e) => handleShareProject(project, e)}
                       variant="ghost"
                       size="sm"
-                      className="h-8 w-8 p-0 text-slate-500 hover:text-emerald-400 hover:bg-slate-700"
+                      className={`h-8 w-8 p-0 ${
+                        isDarkMode 
+                          ? 'text-slate-500 hover:text-emerald-400 hover:bg-slate-700'
+                          : 'text-gray-500 hover:text-emerald-600 hover:bg-gray-100'
+                      }`}
                     >
                       <Share className="h-4 w-4" />
                     </Button>
@@ -153,7 +202,11 @@ const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
                       }}
                       variant="ghost"
                       size="sm"
-                      className="h-8 w-8 p-0 text-slate-500 hover:text-blue-400 hover:bg-slate-700"
+                      className={`h-8 w-8 p-0 ${
+                        isDarkMode 
+                          ? 'text-slate-500 hover:text-blue-400 hover:bg-slate-700'
+                          : 'text-gray-500 hover:text-blue-600 hover:bg-gray-100'
+                      }`}
                     >
                       <Edit className="h-4 w-4" />
                     </Button>
@@ -164,7 +217,11 @@ const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
                       }}
                       variant="ghost"
                       size="sm"
-                      className="h-8 w-8 p-0 text-slate-500 hover:text-red-400 hover:bg-slate-700"
+                      className={`h-8 w-8 p-0 ${
+                        isDarkMode 
+                          ? 'text-slate-500 hover:text-red-400 hover:bg-slate-700'
+                          : 'text-gray-500 hover:text-red-600 hover:bg-gray-100'
+                      }`}
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
@@ -173,7 +230,11 @@ const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
 
                 {isFiltered && (
                   <div className="mt-2">
-                    <Badge variant="secondary" className="text-xs bg-slate-700 text-slate-300">
+                    <Badge variant="secondary" className={`text-xs ${
+                      isDarkMode 
+                        ? 'bg-slate-700 text-slate-300' 
+                        : 'bg-gray-200 text-gray-700'
+                    }`}>
                       필터 적용됨
                     </Badge>
                   </div>
@@ -185,16 +246,28 @@ const ProjectSidebar: React.FC<ProjectSidebarProps> = ({
 
         {projects.length === 0 && (
           <div className="text-center py-8">
-            <p className="text-slate-400">등록된 프로젝트가 없습니다.</p>
-            <p className="text-sm text-slate-500 mt-1">
+            <p className={`${
+              isDarkMode ? 'text-slate-400' : 'text-gray-600'
+            }`}>등록된 프로젝트가 없습니다.</p>
+            <p className={`text-sm mt-1 ${
+              isDarkMode ? 'text-slate-500' : 'text-gray-500'
+            }`}>
               새 프로젝트를 추가해보세요!
             </p>
           </div>
         )}
 
-        <div className="mt-6 p-4 bg-slate-800/50 rounded-lg border border-slate-700">
-          <h4 className="font-medium text-slate-200 mb-2">💡 사용 팁</h4>
-          <ul className="text-sm text-slate-400 space-y-1">
+        <div className={`mt-6 p-4 rounded-lg border ${
+          isDarkMode 
+            ? 'bg-slate-800/50 border-slate-700' 
+            : 'bg-gray-50 border-gray-200'
+        }`}>
+          <h4 className={`font-medium mb-2 ${
+            isDarkMode ? 'text-slate-200' : 'text-gray-900'
+          }`}>💡 사용 팁</h4>
+          <ul className={`text-sm space-y-1 ${
+            isDarkMode ? 'text-slate-400' : 'text-gray-600'
+          }`}>
             <li>• 프로젝트를 클릭하면 해당 일정만 표시됩니다</li>
             <li>• 여러 프로젝트를 동시에 선택할 수 있습니다</li>
             <li>• 색상으로 프로젝트를 쉽게 구분하세요</li>

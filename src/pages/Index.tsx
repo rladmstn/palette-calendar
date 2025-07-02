@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import CalendarView from '@/components/CalendarView';
 import ProjectSidebar from '@/components/ProjectSidebar';
@@ -170,6 +171,7 @@ const Index = () => {
           onDeleteProject={handleDeleteProject}
           showPersonalOnly={showPersonalOnly}
           onTogglePersonalFilter={handleTogglePersonalFilter}
+          isDarkMode={isDarkMode}
         />
         
         <main className="flex-1 p-6">
