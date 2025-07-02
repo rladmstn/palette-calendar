@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import CalendarView from '@/components/CalendarView';
 import ProjectSidebar from '@/components/ProjectSidebar';
@@ -23,6 +22,22 @@ const Index = () => {
   const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
   const [editingEvent, setEditingEvent] = useState<CalendarEvent | null>(null);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  // Apply theme to document element
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.remove('light');
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+    }
+  }, [isDarkMode]);
+
+  const handleThemeToggle = () => {
+    setIsDarkMode(!isDarkMode);
+  };
 
   const handleProjectFilter = (projectIds: string[]) => {
     setFilteredProjects(projectIds);
@@ -130,7 +145,7 @@ const Index = () => {
   })();
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className={`min-h-screen ${isDarkMode ? 'bg-slate-950' : 'bg-gray-50'}`}>
       <Header 
         currentView={currentView}
         onViewChange={setCurrentView}
@@ -139,6 +154,8 @@ const Index = () => {
         onCreateTodo={() => setShowTodoModal(true)}
         onCreateEvent={() => setShowEventModal(true)}
         onCreateProject={() => setShowProjectModal(true)}
+        isDarkMode={isDarkMode}
+        onThemeToggle={handleThemeToggle}
       />
       
       <div className="flex">
