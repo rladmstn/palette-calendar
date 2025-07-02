@@ -84,13 +84,13 @@ const MonthView: React.FC<MonthViewProps> = ({
   };
 
   return (
-    <div className="bg-slate-800/50 backdrop-blur-sm rounded-lg shadow-2xl border border-slate-700/50">
+    <div className="bg-card backdrop-blur-sm rounded-lg shadow-lg border">
       {/* 요일 헤더 */}
-      <div className="grid grid-cols-7 border-b border-slate-700/50">
+      <div className="grid grid-cols-7 border-b">
         {dayNames.map((dayName) => (
           <div
             key={dayName}
-            className="p-3 text-center font-medium text-slate-300 border-r border-slate-700/50 last:border-r-0"
+            className="p-3 text-center font-medium text-foreground border-r last:border-r-0"
           >
             {dayName}
           </div>
@@ -109,15 +109,15 @@ const MonthView: React.FC<MonthViewProps> = ({
           return (
             <div
               key={day.toISOString()}
-              className={`min-h-[120px] p-2 border-r border-b border-slate-700/50 last:border-r-0 ${
-                !isCurrentMonth(day) ? 'bg-slate-900/30' : ''
-              } ${isToday(day) ? 'bg-purple-900/30' : ''}`}
+              className={`min-h-[120px] p-2 border-r border-b last:border-r-0 ${
+                !isCurrentMonth(day) ? 'bg-muted/20' : ''
+              } ${isToday(day) ? 'bg-accent/50' : ''}`}
               onDrop={(e) => handleDrop(e, day)}
               onDragOver={handleDragOver}
             >
               <div className={`text-sm font-medium mb-2 ${
-                isToday(day) ? 'text-purple-400' : 
-                isCurrentMonth(day) ? 'text-slate-200' : 'text-slate-500'
+                isToday(day) ? 'text-primary' : 
+                isCurrentMonth(day) ? 'text-foreground' : 'text-muted-foreground'
               }`}>
                 {day.getDate()}
               </div>
@@ -154,7 +154,7 @@ const MonthView: React.FC<MonthViewProps> = ({
                 
                 {/* 더 보기 표시 */}
                 {hasMore && (
-                  <div className="text-xs text-slate-400 text-center py-1">
+                  <div className="text-xs text-muted-foreground text-center py-1">
                     +{totalItems - showMax}개 더
                   </div>
                 )}

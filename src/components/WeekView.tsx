@@ -76,21 +76,21 @@ const WeekView: React.FC<WeekViewProps> = ({
   };
 
   return (
-    <div className="bg-slate-800/50 backdrop-blur-sm rounded-lg shadow-2xl border border-slate-700/50">
+    <div className="bg-card backdrop-blur-sm rounded-lg shadow-lg border">
       {/* 헤더 */}
-      <div className="grid grid-cols-7 border-b border-slate-700/50">
+      <div className="grid grid-cols-7 border-b">
         {weekDays.map((day, index) => (
           <div
             key={day.toISOString()}
-            className={`p-4 text-center border-r border-slate-700/50 last:border-r-0 ${
-              isToday(day) ? 'bg-purple-900/30' : ''
+            className={`p-4 text-center border-r last:border-r-0 ${
+              isToday(day) ? 'bg-accent' : ''
             }`}
           >
-            <div className="text-sm font-medium text-slate-400 mb-1">
+            <div className="text-sm font-medium text-muted-foreground mb-1">
               {dayNames[index]}
             </div>
             <div className={`text-2xl font-semibold ${
-              isToday(day) ? 'text-purple-400' : 'text-slate-200'
+              isToday(day) ? 'text-primary' : 'text-foreground'
             }`}>
               {day.getDate()}
             </div>
@@ -107,8 +107,8 @@ const WeekView: React.FC<WeekViewProps> = ({
           return (
             <div
               key={day.toISOString()}
-              className={`p-3 border-r border-slate-700/50 last:border-r-0 ${
-                isToday(day) ? 'bg-purple-900/20' : ''
+              className={`p-3 border-r last:border-r-0 ${
+                isToday(day) ? 'bg-accent/50' : ''
               }`}
               onDrop={(e) => handleDrop(e, day)}
               onDragOver={handleDragOver}
@@ -145,7 +145,7 @@ const WeekView: React.FC<WeekViewProps> = ({
                 
                 {/* 빈 날짜 표시 */}
                 {dayTodos.length === 0 && dayEvents.length === 0 && (
-                  <div className="text-center py-8 text-slate-500 text-sm">
+                  <div className="text-center py-8 text-muted-foreground text-sm">
                     일정 없음
                   </div>
                 )}
