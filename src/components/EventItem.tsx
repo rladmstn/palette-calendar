@@ -26,12 +26,12 @@ const EventItem: React.FC<EventItemProps> = ({
   };
 
   const getEventColor = (type: string, isPersonal?: boolean) => {
-    if (isPersonal) return 'bg-pink-900/40 text-pink-300 border-pink-800';
+    if (isPersonal) return 'bg-pink-900/40 text-pink-300 dark:bg-pink-900/40 dark:text-pink-300 bg-pink-100/60 text-pink-700 border-pink-800 dark:border-pink-800 border-pink-300';
     
     switch (type) {
-      case 'meeting': return 'bg-blue-900/40 text-blue-300 border-blue-800';
-      case 'deadline': return 'bg-red-900/40 text-red-300 border-red-800';
-      default: return 'bg-purple-900/40 text-purple-300 border-purple-800';
+      case 'meeting': return 'bg-blue-900/40 text-blue-300 dark:bg-blue-900/40 dark:text-blue-300 bg-blue-100/60 text-blue-700 border-blue-800 dark:border-blue-800 border-blue-300';
+      case 'deadline': return 'bg-red-900/40 text-red-300 dark:bg-red-900/40 dark:text-red-300 bg-red-100/60 text-red-700 border-red-800 dark:border-red-800 border-red-300';
+      default: return 'bg-purple-900/40 text-purple-300 dark:bg-purple-900/40 dark:text-purple-300 bg-purple-100/60 text-purple-700 border-purple-800 dark:border-purple-800 border-purple-300';
     }
   };
 
@@ -56,10 +56,10 @@ const EventItem: React.FC<EventItemProps> = ({
       >
         <div className="flex items-center space-x-1 mb-1">
           {getEventIcon(event.type, event.isPersonal)}
-          <span className="font-medium text-slate-100">{event.title}</span>
+          <span className="font-medium text-slate-100 dark:text-slate-100 text-gray-900">{event.title}</span>
         </div>
         
-        <div className="text-xs text-slate-400">
+        <div className="text-xs text-slate-400 dark:text-slate-400 text-gray-600">
           {event.startTime} - {event.endTime}
         </div>
         
@@ -97,16 +97,16 @@ const EventItem: React.FC<EventItemProps> = ({
               />
             )}
             {getEventIcon(event.type, event.isPersonal)}
-            <h4 className="font-medium text-slate-100">{event.title}</h4>
+            <h4 className="font-medium text-slate-100 dark:text-slate-100 text-gray-900">{event.title}</h4>
           </div>
           
-          <div className="flex items-center space-x-2 text-sm text-slate-400 mb-2">
+          <div className="flex items-center space-x-2 text-sm text-slate-400 dark:text-slate-400 text-gray-600 mb-2">
             <Clock className="h-4 w-4" />
             <span>{event.startTime} - {event.endTime}</span>
           </div>
           
           {event.description && (
-            <p className="text-sm text-slate-400 mb-2">{event.description}</p>
+            <p className="text-sm text-slate-400 dark:text-slate-400 text-gray-600 mb-2">{event.description}</p>
           )}
           
           <div className="flex items-center space-x-2">
