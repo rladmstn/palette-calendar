@@ -33,9 +33,9 @@ const TodoItem: React.FC<TodoItemProps> = ({
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'high': return 'bg-red-100 text-red-800';
-      case 'medium': return 'bg-yellow-100 text-yellow-800';
-      default: return 'bg-green-100 text-green-800';
+      case 'high': return 'bg-red-900/40 text-red-300';
+      case 'medium': return 'bg-yellow-900/40 text-yellow-300';
+      default: return 'bg-green-900/40 text-green-300';
     }
   };
 
@@ -50,12 +50,12 @@ const TodoItem: React.FC<TodoItemProps> = ({
   if (compact) {
     return (
       <div
-        className={`group text-xs p-2 rounded border-l-4 cursor-move transition-all hover:shadow-sm ${
-          todo.completed ? 'bg-gray-50 opacity-60' : 'bg-white'
+        className={`group text-xs p-2 rounded border-l-4 cursor-move transition-all hover:shadow-lg backdrop-blur-sm ${
+          todo.completed ? 'bg-slate-800/30 opacity-60' : 'bg-slate-800/50'
         }`}
         style={{ 
-          borderLeftColor: project?.color || '#gray',
-          backgroundColor: project ? `${project.color}10` : undefined 
+          borderLeftColor: project?.color || '#6b7280',
+          backgroundColor: project ? `${project.color}15` : 'rgba(107, 114, 128, 0.1)' 
         }}
         draggable={draggable}
         onDragStart={handleDragStart}
@@ -64,9 +64,9 @@ const TodoItem: React.FC<TodoItemProps> = ({
           <Checkbox
             checked={todo.completed}
             onCheckedChange={onComplete}
-            className="h-3 w-3"
+            className="h-3 w-3 border-slate-400"
           />
-          <span className={`flex-1 ${todo.completed ? 'line-through text-gray-500' : 'text-gray-900'}`}>
+          <span className={`flex-1 ${todo.completed ? 'line-through text-slate-500' : 'text-slate-200'}`}>
             {todo.title}
           </span>
           <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -77,7 +77,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
               }}
               variant="ghost"
               size="sm"
-              className="h-5 w-5 p-0"
+              className="h-5 w-5 p-0 text-slate-400 hover:text-purple-400"
             >
               <Edit className="h-2 w-2" />
             </Button>
@@ -94,7 +94,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
               {project.name}
             </span>
             {project.isShared && (
-              <Badge variant="outline" className="text-xs px-1">
+              <Badge variant="outline" className="text-xs px-1 border-slate-600 text-slate-400">
                 공유됨
               </Badge>
             )}
@@ -106,10 +106,10 @@ const TodoItem: React.FC<TodoItemProps> = ({
 
   return (
     <div
-      className={`group p-4 rounded-lg border-2 transition-all cursor-move hover:shadow-md ${
+      className={`group p-4 rounded-lg border-2 transition-all cursor-move hover:shadow-2xl backdrop-blur-sm ${
         todo.completed 
-          ? 'bg-gray-50 border-gray-200 opacity-60' 
-          : 'bg-white border-gray-200 hover:border-gray-300'
+          ? 'bg-slate-800/30 border-slate-700/50 opacity-60' 
+          : 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/50'
       }`}
       draggable={draggable}
       onDragStart={handleDragStart}
@@ -120,7 +120,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
             <Checkbox
               checked={todo.completed}
               onCheckedChange={onComplete}
-              className="h-4 w-4 mt-1"
+              className="h-4 w-4 mt-1 border-slate-400"
             />
             <div className="flex-1">
               <div className="flex items-center space-x-2 mb-1">
@@ -131,14 +131,14 @@ const TodoItem: React.FC<TodoItemProps> = ({
                   />
                 )}
                 <h4 className={`font-medium ${
-                  todo.completed ? 'line-through text-gray-500' : 'text-gray-900'
+                  todo.completed ? 'line-through text-slate-500' : 'text-slate-200'
                 }`}>
                   {todo.title}
                 </h4>
               </div>
               
               {todo.description && (
-                <p className="text-sm text-gray-600 mb-2">{todo.description}</p>
+                <p className="text-sm text-slate-400 mb-2">{todo.description}</p>
               )}
               
               <div className="flex items-center space-x-2">
@@ -162,7 +162,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
             onClick={onEdit}
             variant="ghost"
             size="sm"
-            className="h-8 w-8 p-0 text-gray-400 hover:text-blue-600"
+            className="h-8 w-8 p-0 text-slate-400 hover:text-purple-400"
           >
             <Edit className="h-4 w-4" />
           </Button>
@@ -171,7 +171,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
             onClick={onDelete}
             variant="ghost"
             size="sm"
-            className="h-8 w-8 p-0 text-gray-400 hover:text-red-600"
+            className="h-8 w-8 p-0 text-slate-400 hover:text-red-400"
           >
             <Trash2 className="h-4 w-4" />
           </Button>

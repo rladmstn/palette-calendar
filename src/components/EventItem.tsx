@@ -26,12 +26,12 @@ const EventItem: React.FC<EventItemProps> = ({
   };
 
   const getEventColor = (type: string, isPersonal?: boolean) => {
-    if (isPersonal) return 'bg-pink-100 text-pink-800 border-pink-200';
+    if (isPersonal) return 'bg-pink-900/40 text-pink-300 border-pink-700/50';
     
     switch (type) {
-      case 'meeting': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'deadline': return 'bg-red-100 text-red-800 border-red-200';
-      default: return 'bg-purple-100 text-purple-800 border-purple-200';
+      case 'meeting': return 'bg-blue-900/40 text-blue-300 border-blue-700/50';
+      case 'deadline': return 'bg-red-900/40 text-red-300 border-red-700/50';
+      default: return 'bg-purple-900/40 text-purple-300 border-purple-700/50';
     }
   };
 
@@ -48,18 +48,18 @@ const EventItem: React.FC<EventItemProps> = ({
   if (compact) {
     return (
       <div
-        className={`text-xs p-2 rounded border-l-4 ${getEventColor(event.type, event.isPersonal)}`}
+        className={`text-xs p-2 rounded border-l-4 backdrop-blur-sm ${getEventColor(event.type, event.isPersonal)}`}
         style={{ 
-          borderLeftColor: event.isPersonal ? '#ec4899' : (project?.color || '#gray'),
-          backgroundColor: event.isPersonal ? '#fdf2f8' : (project ? `${project.color}15` : undefined)
+          borderLeftColor: event.isPersonal ? '#ec4899' : (project?.color || '#6b7280'),
+          backgroundColor: event.isPersonal ? 'rgba(236, 72, 153, 0.1)' : (project ? `${project.color}20` : 'rgba(107, 114, 128, 0.1)')
         }}
       >
         <div className="flex items-center space-x-1 mb-1">
           {getEventIcon(event.type, event.isPersonal)}
-          <span className="font-medium">{event.title}</span>
+          <span className="font-medium text-slate-200">{event.title}</span>
         </div>
         
-        <div className="text-xs opacity-80">
+        <div className="text-xs text-slate-400">
           {event.startTime} - {event.endTime}
         </div>
         
@@ -81,10 +81,10 @@ const EventItem: React.FC<EventItemProps> = ({
 
   return (
     <div 
-      className={`p-4 rounded-lg border-2 ${getEventColor(event.type, event.isPersonal)}`}
+      className={`p-4 rounded-lg border-2 backdrop-blur-sm ${getEventColor(event.type, event.isPersonal)}`}
       style={{ 
-        backgroundColor: event.isPersonal ? '#fdf2f8' : (project ? `${project.color}10` : undefined),
-        borderColor: event.isPersonal ? '#ec4899' : (project?.color || undefined)
+        backgroundColor: event.isPersonal ? 'rgba(236, 72, 153, 0.1)' : (project ? `${project.color}15` : 'rgba(107, 114, 128, 0.1)'),
+        borderColor: event.isPersonal ? '#ec4899' : (project?.color || '#6b7280')
       }}
     >
       <div className="flex items-start justify-between">
@@ -97,16 +97,16 @@ const EventItem: React.FC<EventItemProps> = ({
               />
             )}
             {getEventIcon(event.type, event.isPersonal)}
-            <h4 className="font-medium text-gray-900">{event.title}</h4>
+            <h4 className="font-medium text-slate-200">{event.title}</h4>
           </div>
           
-          <div className="flex items-center space-x-2 text-sm text-gray-600 mb-2">
+          <div className="flex items-center space-x-2 text-sm text-slate-400 mb-2">
             <Clock className="h-4 w-4" />
             <span>{event.startTime} - {event.endTime}</span>
           </div>
           
           {event.description && (
-            <p className="text-sm text-gray-600 mb-2">{event.description}</p>
+            <p className="text-sm text-slate-400 mb-2">{event.description}</p>
           )}
           
           <div className="flex items-center space-x-2">

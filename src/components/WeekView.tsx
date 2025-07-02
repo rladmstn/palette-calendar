@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Project, Todo, CalendarEvent } from '@/types';
 import TodoItem from './TodoItem';
@@ -75,21 +76,21 @@ const WeekView: React.FC<WeekViewProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+    <div className="bg-slate-800/50 backdrop-blur-sm rounded-lg shadow-2xl border border-slate-700/50">
       {/* 헤더 */}
-      <div className="grid grid-cols-7 border-b border-gray-200">
+      <div className="grid grid-cols-7 border-b border-slate-700/50">
         {weekDays.map((day, index) => (
           <div
             key={day.toISOString()}
-            className={`p-4 text-center border-r border-gray-200 last:border-r-0 ${
-              isToday(day) ? 'bg-blue-50' : ''
+            className={`p-4 text-center border-r border-slate-700/50 last:border-r-0 ${
+              isToday(day) ? 'bg-purple-900/30' : ''
             }`}
           >
-            <div className="text-sm font-medium text-gray-500 mb-1">
+            <div className="text-sm font-medium text-slate-400 mb-1">
               {dayNames[index]}
             </div>
             <div className={`text-2xl font-semibold ${
-              isToday(day) ? 'text-blue-600' : 'text-gray-900'
+              isToday(day) ? 'text-purple-400' : 'text-slate-200'
             }`}>
               {day.getDate()}
             </div>
@@ -106,8 +107,8 @@ const WeekView: React.FC<WeekViewProps> = ({
           return (
             <div
               key={day.toISOString()}
-              className={`p-3 border-r border-gray-200 last:border-r-0 ${
-                isToday(day) ? 'bg-blue-50/30' : ''
+              className={`p-3 border-r border-slate-700/50 last:border-r-0 ${
+                isToday(day) ? 'bg-purple-900/20' : ''
               }`}
               onDrop={(e) => handleDrop(e, day)}
               onDragOver={handleDragOver}
@@ -144,7 +145,7 @@ const WeekView: React.FC<WeekViewProps> = ({
                 
                 {/* 빈 날짜 표시 */}
                 {dayTodos.length === 0 && dayEvents.length === 0 && (
-                  <div className="text-center py-8 text-gray-400 text-sm">
+                  <div className="text-center py-8 text-slate-500 text-sm">
                     일정 없음
                   </div>
                 )}
