@@ -26,12 +26,12 @@ const EventItem: React.FC<EventItemProps> = ({
   };
 
   const getEventColor = (type: string, isPersonal?: boolean) => {
-    if (isPersonal) return 'bg-pink-100 text-pink-800 border-pink-200';
+    if (isPersonal) return 'bg-pink-900/40 text-pink-300 border-pink-800';
     
     switch (type) {
-      case 'meeting': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'deadline': return 'bg-red-100 text-red-800 border-red-200';
-      default: return 'bg-purple-100 text-purple-800 border-purple-200';
+      case 'meeting': return 'bg-blue-900/40 text-blue-300 border-blue-800';
+      case 'deadline': return 'bg-red-900/40 text-red-300 border-red-800';
+      default: return 'bg-purple-900/40 text-purple-300 border-purple-800';
     }
   };
 
@@ -56,10 +56,10 @@ const EventItem: React.FC<EventItemProps> = ({
       >
         <div className="flex items-center space-x-1 mb-1">
           {getEventIcon(event.type, event.isPersonal)}
-          <span className="font-medium text-foreground">{event.title}</span>
+          <span className="font-medium text-slate-100">{event.title}</span>
         </div>
         
-        <div className="text-xs text-muted-foreground">
+        <div className="text-xs text-slate-400">
           {event.startTime} - {event.endTime}
         </div>
         
@@ -97,16 +97,16 @@ const EventItem: React.FC<EventItemProps> = ({
               />
             )}
             {getEventIcon(event.type, event.isPersonal)}
-            <h4 className="font-medium text-foreground">{event.title}</h4>
+            <h4 className="font-medium text-slate-100">{event.title}</h4>
           </div>
           
-          <div className="flex items-center space-x-2 text-sm text-muted-foreground mb-2">
+          <div className="flex items-center space-x-2 text-sm text-slate-400 mb-2">
             <Clock className="h-4 w-4" />
             <span>{event.startTime} - {event.endTime}</span>
           </div>
           
           {event.description && (
-            <p className="text-sm text-muted-foreground mb-2">{event.description}</p>
+            <p className="text-sm text-slate-400 mb-2">{event.description}</p>
           )}
           
           <div className="flex items-center space-x-2">
