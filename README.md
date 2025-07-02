@@ -1,7 +1,7 @@
 
 프로토타입 링크: https://project-palette-calendar.lovable.app/
 
-# 통합 캘린더 서비스
+# Pallete Callendar : 통합 일정 관리 서비스
 
 ## 📌 페르소나
 
