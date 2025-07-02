@@ -105,19 +105,29 @@ const Index = () => {
     ));
   };
 
+  // 개선된 필터링 로직
   const filteredTodos = showPersonalOnly 
     ? [] // 개인 일정 필터일 때는 TODO 숨김
     : filteredProjects.length > 0 
       ? todos.filter(todo => filteredProjects.includes(todo.projectId))
       : todos;
 
-  const filteredEvents = showPersonalOnly
-    ? events.filter(event => event.isPersonal)
-    : filteredProjects.length > 0
-      ? events.filter(event => 
-          event.isPersonal || (event.projectId && filteredProjects.includes(event.projectId))
-        )
-      : events;
+  const filteredEvents = (() => {
+    if (showPersonalOnly) {
+      // 개인 일정만 표시
+      return events.filter(event => event.isPersonal === true);
+    }
+    
+    if (filteredProjects.length > 0) {
+      // 선택된 프로젝트의 일정만 표시 (개인 일정은 제외)
+      return events.filter(event => 
+        event.projectId && filteredProjects.includes(event.projectId)
+      );
+    }
+    
+    // 모든 일정 표시 (개인 일정 + 프로젝트 일정)
+    return events;
+  })();
 
   return (
     <div className="min-h-screen bg-background">
