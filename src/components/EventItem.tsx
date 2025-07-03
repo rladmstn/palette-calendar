@@ -56,7 +56,7 @@ const EventItem: React.FC<EventItemProps> = ({
       >
         <div className="flex items-center space-x-1 mb-1">
           {getEventIcon(event.type, event.isPersonal)}
-          <span className="font-medium text-slate-100 dark:text-slate-100 text-gray-900">{event.title}</span>
+          <span className="font-medium text-gray-900 dark:text-slate-100">{event.title}</span>
         </div>
         
         <div className="text-xs text-slate-400 dark:text-slate-400 text-gray-600">
@@ -97,7 +97,7 @@ const EventItem: React.FC<EventItemProps> = ({
               />
             )}
             {getEventIcon(event.type, event.isPersonal)}
-            <h4 className="font-medium text-slate-100 dark:text-slate-100 text-gray-900">{event.title}</h4>
+            <h4 className="font-medium text-gray-900 dark:text-slate-100">{event.title}</h4>
           </div>
           
           <div className="flex items-center space-x-2 text-sm text-slate-400 dark:text-slate-400 text-gray-600 mb-2">

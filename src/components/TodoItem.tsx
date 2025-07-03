@@ -71,7 +71,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
           <span className={`flex-1 ${
             todo.completed 
               ? 'line-through text-slate-500 dark:text-slate-500 text-gray-500' 
-              : 'text-slate-100 dark:text-slate-100 text-gray-900 font-medium'
+              : 'text-gray-900 dark:text-slate-100 font-medium'
           }`}>
             {todo.title}
           </span>
@@ -139,7 +139,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
                 <h4 className={`font-medium ${
                   todo.completed 
                     ? 'line-through text-slate-500 dark:text-slate-500 text-gray-500' 
-                    : 'text-slate-100 dark:text-slate-100 text-gray-900 font-semibold'
+                    : 'text-gray-900 dark:text-slate-100 font-semibold'
                 }`}>
                   {todo.title}
                 </h4>
